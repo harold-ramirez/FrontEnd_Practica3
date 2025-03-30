@@ -9,7 +9,10 @@ function App() {
       <ServerSelect />
       <div className="p-2 flex-1 flex flex-col items-center justify-center gap-2">
         <DestinationSelect />
-        <FlightsList origin={"Sao Paulo, Brasil"} destination={"La Paz, Bolivia"} />
+        <FlightsList
+          origin={"Sao Paulo, Brasil"}
+          destination={"La Paz, Bolivia"}
+        />
       </div>
     </div>
   );

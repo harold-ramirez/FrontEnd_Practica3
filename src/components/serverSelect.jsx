@@ -4,15 +4,15 @@ export default function ServerSelect() {
   const [currentCity, setCurrentCity] = useState("");
   const [server, setServer] = useState("...");
   const cities = [
-    { id: 1, name: "Cochabamba - Bolivia" },
-    { id: 2, name: "Buenos Aires -Argentina" },
-    { id: 3, name: "Sao Paulo - Brasil" },
-    { id: 4, name: "Cusco - Perú" },
+    { id: 1, name: "Bolivia" },
+    { id: 2, name: "Argentina" },
+    { id: 3, name: "Brasil" },
+    { id: 4, name: "Perú" },
   ];
   const servers = [
     { id: 1, name: "América" },
     { id: 2, name: "China" },
-    { id: 3, name: "África" },
+    { id: 3, name: "Europa" },
   ];
   const selectServer = (city) => {
     switch (city) {
@@ -38,7 +38,7 @@ export default function ServerSelect() {
         <select
           name=""
           id=""
-          className="border border-white text-center p-1"
+          className="bg-gray-700 border border-white text-center p-1"
           value={currentCity}
           onChange={(e) => {
             setCurrentCity(e.target.value);

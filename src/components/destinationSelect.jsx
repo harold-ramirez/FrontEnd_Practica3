@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 export default function DestinationSelect() {
-  const [origin, setOrigin] = useState("");
-  const [destination, setDestination] = useState("");
+  const [origin, setOrigin] = useState(0);
+  const [destination, setDestination] = useState(0);
   const [date, setDate] = useState("");
   const cities = [
-    { id: 1, name: "Cochabamba - Bolivia" },
-    { id: 2, name: "Buenos Aires -Argentina" },
-    { id: 3, name: "Sao Paulo - Brasil" },
-    { id: 4, name: "Cusco - Perú" },
+    { id: 1, name: "Bolivia" },
+    { id: 2, name: "Argentina" },
+    { id: 3, name: "Brasil" },
+    { id: 4, name: "Perú" },
   ];
 
   return (
@@ -19,7 +19,7 @@ export default function DestinationSelect() {
           <select
             name=""
             id=""
-            className="border border-white text-center p-1"
+            className="border border-white text-center p-1 bg-gray-700"
             value={origin}
             onChange={(e) => {
               setOrigin(e.target.value);
@@ -43,7 +43,7 @@ export default function DestinationSelect() {
           <select
             name=""
             id=""
-            className="border border-white text-center p-1"
+            className="border border-white text-center p-1 bg-gray-700"
             value={destination}
             onChange={(e) => {
               setDestination(e.target.value);
