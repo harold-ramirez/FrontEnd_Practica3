@@ -1,3 +1,10 @@
+@import "tailwindcss";
+/*
+*{
+  border: red solid 1px;
+}
+*/
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
