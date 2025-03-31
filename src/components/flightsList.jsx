@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SeatSelect from "./seatSelect";
+import arrowImg from "../assets/arrowImg.png";
 
 export default function FlightsList() {
   const [showSeats, setShowSeats] = useState(false);
@@ -42,8 +43,7 @@ export default function FlightsList() {
   ];
 
   return (
-    <div className="w-2/3 relative flex-1 border vorder-white p-2 flex flex-col gap-4 items-center"
-    >
+    <div className="w-2/3 relative flex-1 border vorder-white p-2 flex flex-col gap-4 items-center">
       <span className="text-left w-full p-2">Vuelos Disponibles:</span>
       {flights.length === 0 ? (
         <span className="flex flex-1 items-center justify-center">
@@ -68,8 +68,8 @@ export default function FlightsList() {
               </span>
             </span>
 
-            <span className="flex items-center">{"-->"}</span>
-
+            {/* <span className="flex items-center">{"-->"}</span> */}
+            <img src={arrowImg} width={100} alt="arrow Img" />
             <span className="flex-1 flex flex-row gap-2">
               <span className="flex flex-1 items-center justify-center">
                 {flight.destination}

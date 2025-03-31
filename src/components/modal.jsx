@@ -66,6 +66,18 @@ export default function Modal({ onClose, seat }) {
           <span className="flex flex-col gap-2">
             <span className="flex flex-row gap-2">
               <label htmlFor="" className="w-2/5">
+                Estado:
+              </label>
+              <input
+                type="text"
+                readOnly
+                value={seat.status}
+                className="border border-black p-1 rounded text-center"
+              />
+            </span>
+
+            <span className="flex flex-row gap-2">
+              <label htmlFor="" className="w-2/5">
                 Pasajero:
               </label>
               <input
@@ -108,12 +120,12 @@ export default function Modal({ onClose, seat }) {
                     <input
                       type="button"
                       value="Reservar"
-                      className="border border-black w-1/3 rounded-lg p-2 hover:bg-blue-800 hover:text-white"
+                      className="bg-blue-300 border border-black w-1/3 rounded-lg p-2 hover:bg-blue-800 hover:text-white"
                     />
                     <input
                       type="button"
                       value="Comprar"
-                      className="border border-black w-1/3 rounded-lg p-2 hover:bg-green-800 hover:text-white"
+                      className="bg-green-300 border border-black w-1/3 rounded-lg p-2 hover:bg-green-800 hover:text-white"
                     />
                   </>
                 );
@@ -123,12 +135,12 @@ export default function Modal({ onClose, seat }) {
                     <input
                       type="button"
                       value="Devolver"
-                      className="border border-black w-1/3 rounded-lg p-2 hover:bg-red-800 hover:text-white"
+                      className="bg-red-300 border border-black w-1/3 rounded-lg p-2 hover:bg-red-800 hover:text-white"
                     />
                     <input
                       type="button"
                       value="Comprar"
-                      className="border border-black w-1/3 rounded-lg p-2 hover:bg-green-800 hover:text-white"
+                      className="bg-green-300 border border-black w-1/3 rounded-lg p-2 hover:bg-green-800 hover:text-white"
                     />
                   </>
                 );
@@ -136,6 +148,12 @@ export default function Modal({ onClose, seat }) {
                 return (
                   <p className="italic text-red-600">
                     No se aceptan devoluciones
+                  </p>
+                );
+                case "Devuelto":
+                return (
+                  <p className="italic text-red-600">
+                    Actualizando... en breve pasará a estado Libre
                   </p>
                 );
               default:

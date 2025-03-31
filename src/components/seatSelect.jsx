@@ -1,39 +1,11 @@
 import { useState } from "react";
 import Modal from "./modal";
+import Seats from "../Data/seats"
 
 export default function SeatSelect({ onClose }) {
+  const seats = Seats;
   const [showModal, setShowModal] = useState(false);
   const [selectedSeat, setSelectedSeat] = useState();
-  const seats = [
-    {
-      id: 1,
-      seatNumber: "A14",
-      class: "Ejecutiva",
-      status: "Libre",
-      price: 300,
-    },
-    {
-      id: 2,
-      seatNumber: "F23",
-      class: "Turística",
-      status: "Vendido",
-      price: 20,
-    },
-    {
-      id: 3,
-      seatNumber: "C24",
-      class: "turística",
-      status: "Reservado",
-      price: 30,
-    },
-    {
-      id: 4,
-      seatNumber: "Z13",
-      class: "Turística",
-      status: "Devuelto",
-      price: 15,
-    },
-  ];
 
   return (
     <div className="bg-green-700 w-full h-full absolute top-0 left-0 flex flex-row gap-2 p-2 justify-center">
@@ -86,7 +58,7 @@ export default function SeatSelect({ onClose }) {
           </button>
         </div>
         <p className="text-left">Seleccione su Asiento...</p>
-        <div className="flex-1 border border-black flex gap-2 p-2 items-center justify-center">
+        <div className="flex-1 border border-black flex flex-wrap gap-2 p-2 items-center justify-center">
           {seats.map((seat) => (
             <div
               key={seat.id}
