@@ -1,868 +1,868 @@
 [
   {
     "id": 1,
-    "seatNumber": "A0",
+    "seatNumber": "A01",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 2,
-    "seatNumber": "B0",
+    "seatNumber": "B01",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 3,
-    "seatNumber": "C0",
+    "seatNumber": "C01",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 4,
-    "seatNumber": "D0",
+    "seatNumber": "D01",
     "class": "Turística",
     "status": "Devuelto",
     "price": 150
   },
   {
     "id": 5,
-    "seatNumber": "E0",
+    "seatNumber": "E01",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 6,
-    "seatNumber": "F0",
+    "seatNumber": "F01",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 7,
-    "seatNumber": "A0",
+    "seatNumber": "A02",
     "class": "Ejecutiva",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 8,
-    "seatNumber": "B0",
+    "seatNumber": "B02",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 9,
-    "seatNumber": "C0",
+    "seatNumber": "C02",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 10,
-    "seatNumber": "D0",
+    "seatNumber": "D02",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 11,
-    "seatNumber": "E0",
+    "seatNumber": "E02",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 12,
-    "seatNumber": "F0",
+    "seatNumber": "F02",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 13,
-    "seatNumber": "A0",
+    "seatNumber": "A03",
     "class": "Turística",
     "status": "Reservado",
     "price": 150
   },
   {
     "id": 14,
-    "seatNumber": "B0",
+    "seatNumber": "B03",
     "class": "Turística",
     "status": "Reservado",
     "price": 150
   },
   {
     "id": 15,
-    "seatNumber": "C0",
+    "seatNumber": "C03",
     "class": "Ejecutiva",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 16,
-    "seatNumber": "D0",
+    "seatNumber": "D03",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 17,
-    "seatNumber": "E0",
+    "seatNumber": "E03",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 18,
-    "seatNumber": "F0",
+    "seatNumber": "F03",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 19,
-    "seatNumber": "A0",
+    "seatNumber": "A04",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 20,
-    "seatNumber": "B0",
+    "seatNumber": "B04",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 21,
-    "seatNumber": "C0",
+    "seatNumber": "C04",
     "class": "Turística",
     "status": "Devuelto",
     "price": 150
   },
   {
     "id": 22,
-    "seatNumber": "D0",
+    "seatNumber": "D04",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 23,
-    "seatNumber": "E0",
+    "seatNumber": "E04",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 24,
-    "seatNumber": "F0",
+    "seatNumber": "F04",
     "class": "Turística",
     "status": "Devuelto",
     "price": 150
   },
   {
     "id": 25,
-    "seatNumber": "A0",
+    "seatNumber": "A05",
     "class": "Turística",
     "status": "Reservado",
     "price": 150
   },
   {
     "id": 26,
-    "seatNumber": "B0",
+    "seatNumber": "B05",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 27,
-    "seatNumber": "C0",
+    "seatNumber": "C05",
     "class": "Turística",
     "status": "Reservado",
     "price": 150
   },
   {
     "id": 28,
-    "seatNumber": "D0",
+    "seatNumber": "D05",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 29,
-    "seatNumber": "E0",
+    "seatNumber": "E05",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 30,
-    "seatNumber": "F0",
+    "seatNumber": "F05",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 31,
-    "seatNumber": "A0",
+    "seatNumber": "A06",
     "class": "Turística",
     "status": "Reservado",
     "price": 350
   },
   {
     "id": 32,
-    "seatNumber": "B0",
+    "seatNumber": "B06",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 33,
-    "seatNumber": "C0",
+    "seatNumber": "C06",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 34,
-    "seatNumber": "D0",
+    "seatNumber": "D06",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 35,
-    "seatNumber": "E0",
+    "seatNumber": "E06",
     "class": "Turística",
     "status": "Reservado",
     "price": 350
   },
   {
     "id": 36,
-    "seatNumber": "F0",
+    "seatNumber": "F06",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 37,
-    "seatNumber": "A0",
+    "seatNumber": "A07",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 38,
-    "seatNumber": "B0",
+    "seatNumber": "B07",
     "class": "Turística",
     "status": "Devuelto",
     "price": 150
   },
   {
     "id": 39,
-    "seatNumber": "C0",
+    "seatNumber": "C07",
     "class": "Turística",
     "status": "Devuelto",
     "price": 350
   },
   {
     "id": 40,
-    "seatNumber": "D0",
+    "seatNumber": "D07",
     "class": "Turística",
     "status": "Reservado",
     "price": 150
   },
   {
     "id": 41,
-    "seatNumber": "E0",
+    "seatNumber": "E07",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 42,
-    "seatNumber": "F0",
+    "seatNumber": "F07",
     "class": "Ejecutiva",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 43,
-    "seatNumber": "A0",
+    "seatNumber": "A08",
     "class": "Turística",
     "status": "Reservado",
     "price": 350
   },
   {
     "id": 44,
-    "seatNumber": "B0",
+    "seatNumber": "B08",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 45,
-    "seatNumber": "C0",
+    "seatNumber": "C08",
     "class": "Turística",
     "status": "Devuelto",
     "price": 150
   },
   {
     "id": 46,
-    "seatNumber": "D0",
+    "seatNumber": "D08",
     "class": "Turística",
     "status": "Devuelto",
     "price": 150
   },
   {
     "id": 47,
-    "seatNumber": "E0",
+    "seatNumber": "E08",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 48,
-    "seatNumber": "F0",
+    "seatNumber": "F08",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 49,
-    "seatNumber": "A0",
+    "seatNumber": "A09",
     "class": "Ejecutiva",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 50,
-    "seatNumber": "B0",
+    "seatNumber": "B09",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 51,
-    "seatNumber": "C0",
+    "seatNumber": "C09",
     "class": "Turística",
     "status": "Devuelto",
     "price": 150
   },
   {
     "id": 52,
-    "seatNumber": "D0",
+    "seatNumber": "D09",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 53,
-    "seatNumber": "E0",
+    "seatNumber": "E09",
     "class": "Ejecutiva",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 54,
-    "seatNumber": "F0",
+    "seatNumber": "F09",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 55,
-    "seatNumber": "A0",
+    "seatNumber": "A10",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 56,
-    "seatNumber": "B0",
+    "seatNumber": "B10",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 57,
-    "seatNumber": "C0",
+    "seatNumber": "C10",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 58,
-    "seatNumber": "D0",
+    "seatNumber": "D10",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 59,
-    "seatNumber": "E0",
+    "seatNumber": "E10",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 60,
-    "seatNumber": "F0",
+    "seatNumber": "F10",
     "class": "Turística",
     "status": "Reservado",
     "price": 350
   },
   {
     "id": 61,
-    "seatNumber": "A0",
+    "seatNumber": "A11",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 62,
-    "seatNumber": "B0",
+    "seatNumber": "B11",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 63,
-    "seatNumber": "C0",
+    "seatNumber": "C11",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 64,
-    "seatNumber": "D0",
+    "seatNumber": "D11",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 65,
-    "seatNumber": "E0",
+    "seatNumber": "E11",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 66,
-    "seatNumber": "F0",
+    "seatNumber": "F11",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 67,
-    "seatNumber": "A0",
+    "seatNumber": "A12",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 68,
-    "seatNumber": "B0",
+    "seatNumber": "B12",
     "class": "Turística",
     "status": "Devuelto",
     "price": 150
   },
   {
     "id": 69,
-    "seatNumber": "C0",
+    "seatNumber": "C12",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 70,
-    "seatNumber": "D0",
+    "seatNumber": "D12",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 71,
-    "seatNumber": "E0",
+    "seatNumber": "E12",
     "class": "Turística",
     "status": "Reservado",
     "price": 150
   },
   {
     "id": 72,
-    "seatNumber": "F0",
+    "seatNumber": "F12",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 73,
-    "seatNumber": "A0",
+    "seatNumber": "A13",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 74,
-    "seatNumber": "B0",
+    "seatNumber": "B13",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 75,
-    "seatNumber": "C0",
+    "seatNumber": "C13",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 76,
-    "seatNumber": "D0",
+    "seatNumber": "D13",
     "class": "Turística",
     "status": "Reservado",
     "price": 350
   },
   {
     "id": 77,
-    "seatNumber": "E0",
+    "seatNumber": "E13",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 78,
-    "seatNumber": "F0",
+    "seatNumber": "F13",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 79,
-    "seatNumber": "A0",
+    "seatNumber": "A14",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 80,
-    "seatNumber": "B0",
+    "seatNumber": "B14",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 81,
-    "seatNumber": "C0",
+    "seatNumber": "C14",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 82,
-    "seatNumber": "D0",
+    "seatNumber": "D14",
     "class": "Turística",
     "status": "Devuelto",
     "price": 350
   },
   {
     "id": 83,
-    "seatNumber": "E0",
+    "seatNumber": "E14",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 84,
-    "seatNumber": "F0",
+    "seatNumber": "F14",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 85,
-    "seatNumber": "A0",
+    "seatNumber": "A15",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 86,
-    "seatNumber": "B0",
+    "seatNumber": "B15",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 87,
-    "seatNumber": "C0",
+    "seatNumber": "C15",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 88,
-    "seatNumber": "D0",
+    "seatNumber": "D15",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 89,
-    "seatNumber": "E0",
+    "seatNumber": "E15",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 90,
-    "seatNumber": "F0",
+    "seatNumber": "F15",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 91,
-    "seatNumber": "A0",
+    "seatNumber": "A16",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 92,
-    "seatNumber": "B0",
+    "seatNumber": "B16",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 93,
-    "seatNumber": "C0",
+    "seatNumber": "C16",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 94,
-    "seatNumber": "D0",
+    "seatNumber": "D16",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 95,
-    "seatNumber": "E0",
+    "seatNumber": "E16",
     "class": "Turística",
     "status": "Reservado",
     "price": 350
   },
   {
     "id": 96,
-    "seatNumber": "F0",
+    "seatNumber": "F16",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 97,
-    "seatNumber": "A0",
+    "seatNumber": "A17",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 98,
-    "seatNumber": "B0",
+    "seatNumber": "B17",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 99,
-    "seatNumber": "C0",
+    "seatNumber": "C17",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 100,
-    "seatNumber": "D0",
+    "seatNumber": "D17",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 101,
-    "seatNumber": "E0",
+    "seatNumber": "E17",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 102,
-    "seatNumber": "F0",
+    "seatNumber": "F17",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 103,
-    "seatNumber": "A0",
+    "seatNumber": "A18",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 104,
-    "seatNumber": "B0",
+    "seatNumber": "B18",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 105,
-    "seatNumber": "C0",
+    "seatNumber": "C18",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 106,
-    "seatNumber": "D0",
+    "seatNumber": "D18",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 107,
-    "seatNumber": "E0",
+    "seatNumber": "E18",
     "class": "Ejecutiva",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 108,
-    "seatNumber": "F0",
+    "seatNumber": "F18",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 109,
-    "seatNumber": "A0",
+    "seatNumber": "A19",
     "class": "Turística",
     "status": "Reservado",
     "price": 150
   },
   {
     "id": 110,
-    "seatNumber": "B0",
+    "seatNumber": "B19",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 111,
-    "seatNumber": "C0",
+    "seatNumber": "C19",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 112,
-    "seatNumber": "D0",
+    "seatNumber": "D19",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 113,
-    "seatNumber": "E0",
+    "seatNumber": "E19",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 114,
-    "seatNumber": "F0",
+    "seatNumber": "F19",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 115,
-    "seatNumber": "A0",
+    "seatNumber": "A20",
     "class": "Turística",
     "status": "Libre",
     "price": 150
   },
   {
     "id": 116,
-    "seatNumber": "B0",
+    "seatNumber": "B20",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 117,
-    "seatNumber": "C0",
+    "seatNumber": "C20",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 118,
-    "seatNumber": "D0",
+    "seatNumber": "D20",
     "class": "Turística",
     "status": "Vendido",
     "price": 350
   },
   {
     "id": 119,
-    "seatNumber": "E0",
+    "seatNumber": "E20",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 120,
-    "seatNumber": "F0",
+    "seatNumber": "F20",
     "class": "Turística",
     "status": "Vendido",
     "price": 150
   },
   {
     "id": 121,
-    "seatNumber": "A0",
+    "seatNumber": "A21",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 122,
-    "seatNumber": "B0",
+    "seatNumber": "B21",
     "class": "Turística",
     "status": "Devuelto",
     "price": 350
   },
   {
     "id": 123,
-    "seatNumber": "C0",
+    "seatNumber": "C21",
     "class": "Turística",
     "status": "Libre",
     "price": 350
   },
   {
     "id": 124,
-    "seatNumber": "D0",
+    "seatNumber": "D21",
     "class": "Turística",
     "status": "Devuelto",
     "price": 350
