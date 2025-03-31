@@ -3,7 +3,6 @@ import Modal from "./modal";
 import Seats from "../Data/seats";
 
 export default function SeatSelect({ onClose }) {
-  const seats = Seats;
   const [showModal, setShowModal] = useState(false);
   const [selectedSeat, setSelectedSeat] = useState();
 
@@ -67,7 +66,7 @@ export default function SeatSelect({ onClose }) {
                 <div key={letter} className="flex gap-2 items-center">
                   {/* Agregar letra antes de la fila */}
                   <span className="w-4 text-right text-gray-600">{letter}</span>
-                  {seats
+                  {Seats
                     .filter((seat) => seat.seatNumber.includes(letter))
                     .sort((a, b) => a.seatNumber.localeCompare(b.seatNumber)) // Ordenar por número
                     .map((seat) => (
@@ -126,7 +125,7 @@ export default function SeatSelect({ onClose }) {
                 <div key={letter} className="flex gap-2 items-center">
                   {/* Agregar letra antes de la fila */}
                   <span className="w-4 text-right text-gray-600">{letter}</span>
-                  {seats
+                  {Seats
                     .filter((seat) => seat.seatNumber.includes(letter))
                     .sort((a, b) => a.seatNumber.localeCompare(b.seatNumber)) // Ordenar por número
                     .map((seat) => (

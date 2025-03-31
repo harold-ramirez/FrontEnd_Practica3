@@ -1,54 +1,19 @@
-import { useState } from "react";
+import Countries from "../Data/countries.json";
 
-export default function ServerSelect() {
-  const [currentCity, setCurrentCity] = useState("");
-  const [server, setServer] = useState("...");
-  const cities = [
-    { id: 1, name: "Bolivia" },
-    { id: 2, name: "Argentina" },
-    { id: 3, name: "Brasil" },
-    { id: 4, name: "Perú" },
-  ];
-  const servers = [
-    { id: 1, name: "América" },
-    { id: 2, name: "China" },
-    { id: 3, name: "Europa" },
-  ];
-  const selectServer = (city) => {
-    switch (city) {
-      case "1":
-        setServer(servers[0].name);
-        break;
-      case "2":
-        setServer(servers[1].name);
-        break;
-      case "3":
-        setServer(servers[2].name);
-        break;
-      default:
-        setServer("...");
-        break;
-    }
-  };
-
+export default function ServerSelect({ setCountryId }) {
   return (
     <div className="border-3 border-white p-5 flex justify-around">
       <span className="flex flex-row gap-3 items-center">
-        <label htmlFor="">Estoy comprando desde:</label>
+        <label htmlFor="currentCity">Estoy comprando desde:</label>
         <select
-          name=""
-          id=""
+          id="currentCity"
           className="bg-gray-700 border border-white text-center p-1"
-          value={currentCity}
-          onChange={(e) => {
-            setCurrentCity(e.target.value);
-            selectServer(e.target.value);
-          }}
+          onChange={(e) => setCountryId(e.target.value)}
         >
           <option hidden value="0">
-            Selecciona una ciudad...
+            Selecciona un país...
           </option>
-          {cities.map((city) => (
+          {Countries.map((city) => (
             <option key={city.id} value={city.id}>
               {city.name}
             </option>
@@ -61,7 +26,7 @@ export default function ServerSelect() {
           type="text"
           readOnly
           className="border border-white text-center p-1"
-          value={server}
+          placeholder="Seleccione un país..."
         />
       </span>
     </div>
