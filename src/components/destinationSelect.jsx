@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Countries from "../Data/countries.json";
-import Cities from "../Data/cities.json";
+import CountriesJson from "../Data/countries.json";
+import CitiesJson from "../Data/cities.json";
 import arrowImg from "../assets/arrowImg.png";
 
 export default function DestinationSelect() {
@@ -13,10 +13,10 @@ export default function DestinationSelect() {
   const [date, setDate] = useState("");
 
   // Filtrar las ciudades según los countries seleccionados
-  const filteredCitiesOrigin = Cities.filter(
+  const filteredCitiesOrigin = CitiesJson.filter(
     (city) => city.id_country === Number(countryOrigin)
   );
-  const filteredCitiesDestination = Cities.filter(
+  const filteredCitiesDestination = CitiesJson.filter(
     (city) => city.id_country === Number(countryDestination)
   );
 
@@ -37,7 +37,7 @@ export default function DestinationSelect() {
               <option hidden value="0">
                 Selecciona un país...
               </option>
-              {Countries.map((city) => (
+              {CountriesJson.map((city) => (
                 <option key={city.id} value={city.id}>
                   {city.name}
                 </option>
@@ -88,7 +88,7 @@ export default function DestinationSelect() {
               <option hidden value="0">
                 Selecciona un país...
               </option>
-              {Countries.map((city) => (
+              {CountriesJson.map((city) => (
                 <option key={city.id} value={city.id}>
                   {city.name}
                 </option>

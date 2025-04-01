@@ -1,11 +1,11 @@
-import Countries from "../Data/countries.json";
+import CountriesJson from "../Data/countries.json";
 import { useState } from "react";
 
 export default function ServerSelect() {
   const [countryId, setCountryId] = useState(null);
 
   return (
-    <div className="border-3 border-white p-5 flex justify-around">
+    <div className="border-3 border-white bg-teal-900 p-5 flex justify-around">
       <span className="flex flex-row gap-3 items-center">
         <label htmlFor="currentCity">Estoy comprando desde:</label>
         <select
@@ -19,7 +19,7 @@ export default function ServerSelect() {
           <option hidden value="0">
             Selecciona un país...
           </option>
-          {Countries.map((city) => (
+          {CountriesJson.map((city) => (
             <option key={city.id} value={city.id}>
               {city.name}
             </option>
