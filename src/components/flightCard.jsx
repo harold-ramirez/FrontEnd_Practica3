@@ -14,13 +14,13 @@ export default function FlightCard({ flight }) {
       >
         <span className="flex-1 flex flex-row gap-2">
           <span className="flex flex-col">
-            <span>{flight.originDate.split(" ")[0]}</span>
+            <span>{flight.fecha_salida.split(" ")[0]}</span>
             <span className="font-bold text-3xl">
-              {flight.originDate.split(" ")[1]}
+              {flight.fecha_salida.split(" ")[1]}
             </span>
           </span>
           <span className="flex flex-1 items-center justify-center">
-            {flight.origin}
+            {flight.origen}
           </span>
         </span>
 
@@ -28,12 +28,12 @@ export default function FlightCard({ flight }) {
 
         <span className="flex-1 flex flex-row gap-2">
           <span className="flex flex-1 items-center justify-center">
-            {flight.destination}
+            {flight.destino}
           </span>
           <span className="flex flex-col">
-            <span>{flight.destinationDate.split(" ")[0]}</span>
+            <span>{flight.fecha_llegada.split(" ")[0]}</span>
             <span className="font-bold text-3xl">
-              {flight.destinationDate.split(" ")[1]}
+              {flight.fecha_llegada.split(" ")[1]}
             </span>
           </span>
         </span>

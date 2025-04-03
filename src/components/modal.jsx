@@ -1,8 +1,53 @@
 import { useState } from "react";
+import axios from "axios";
 
 export default function Modal({ onClose, seat }) {
   const [passenger, setPassenger] = useState("");
   const [passport, setPassport] = useState("");
+
+  const handleComprar = () => {
+    //Lógica
+    onClose;
+  };
+  const handleDevolver = () => {
+    //Lógica
+    onClose;
+  };
+  const handleReservar = async () => {
+    if (passenger && passport) {
+      try {
+        const response = await axios.post(`http://localhost:3000/reservar`, {
+          params: {
+            cliente: {
+              nombre: passenger.split(" ")[0],
+              apellido: passenger.split(" ")[1],
+              pasaporte: passport,
+              codigoPais: ".",
+            },
+            idAvion: seat.idAvion,
+            idProgramacion: seat.idProgramacion,
+            nombreAsiento: seat.nombre_asiento,
+            precio: seat.precio_usd,
+          },
+        });
+        // Manejar la respuesta aquí
+        console.log("Respuesta del servidor:", response.data);
+        console.log("Estado de la respuesta:", response.status);
+
+        // Verificar el código de estado para determinar si la solicitud fue exitosa
+        if (response.status === 200) {
+          // La reserva fue exitosa
+          console.log("Reserva realizada con éxito");
+          onClose(); // Cerrar el modal o realizar otras acciones
+        } else {
+          // La reserva falló
+          console.error("Error al realizar la reserva");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+  };
 
   return (
     <div
@@ -33,7 +78,7 @@ export default function Modal({ onClose, seat }) {
               <input
                 type="text"
                 readOnly
-                value={seat.seatNumber}
+                value={seat.nombre_asiento}
                 className="border border-black w-2/5 p-1 rounded text-center"
               />
             </span>
@@ -45,7 +90,7 @@ export default function Modal({ onClose, seat }) {
               <input
                 type="text"
                 readOnly
-                value={seat.class}
+                value={seat.clase}
                 className="border border-black w-2/5 p-1 rounded text-center"
               />
             </span>
@@ -57,7 +102,7 @@ export default function Modal({ onClose, seat }) {
               <input
                 type="text"
                 readOnly
-                value={seat.price}
+                value={seat.precio}
                 className="border border-black w-2/5 p-1 rounded text-center"
               />
             </span>
@@ -71,7 +116,7 @@ export default function Modal({ onClose, seat }) {
               <input
                 type="text"
                 readOnly
-                value={seat.status}
+                value={seat.estado}
                 className="border border-black p-1 rounded text-center"
               />
             </span>
@@ -120,11 +165,13 @@ export default function Modal({ onClose, seat }) {
                     <input
                       type="button"
                       value="Reservar"
+                      onClick={handleReservar}
                       className="bg-blue-300 border border-black w-1/3 rounded-lg p-2 hover:bg-blue-800 hover:text-white"
                     />
                     <input
                       type="button"
                       value="Comprar"
+                      onClick={handleComprar}
                       className="bg-green-300 border border-black w-1/3 rounded-lg p-2 hover:bg-green-800 hover:text-white"
                     />
                   </>
@@ -135,11 +182,13 @@ export default function Modal({ onClose, seat }) {
                     <input
                       type="button"
                       value="Devolver"
+                      onClick={handleDevolver}
                       className="bg-red-300 border border-black w-1/3 rounded-lg p-2 hover:bg-red-800 hover:text-white"
                     />
                     <input
                       type="button"
                       value="Comprar"
+                      onClick={handleComprar}
                       className="bg-green-300 border border-black w-1/3 rounded-lg p-2 hover:bg-green-800 hover:text-white"
                     />
                   </>
@@ -150,7 +199,7 @@ export default function Modal({ onClose, seat }) {
                     No se aceptan devoluciones
                   </p>
                 );
-                case "Devuelto":
+              case "Devuelto":
                 return (
                   <p className="italic text-red-600">
                     Actualizando... en breve pasará a estado Libre

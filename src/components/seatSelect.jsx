@@ -1,3 +1,4 @@
+import SeatsJson from "../Data/seats.json"
 import AirplaneMap1 from "./airplaneMaps/airplaneMap1";
 
 export default function SeatSelect({ onClose }) {
@@ -32,7 +33,7 @@ export default function SeatSelect({ onClose }) {
             <input
               type="text"
               readOnly
-              value={20}
+              value={SeatsJson[0].price}
               className=" w-1/5 text-left"
             />
           </span>
@@ -41,7 +42,7 @@ export default function SeatSelect({ onClose }) {
             <input
               type="text"
               readOnly
-              value={20}
+              value={SeatsJson[20].price}
               className="w-1/5 text-left"
             />
           </span>
@@ -52,7 +53,7 @@ export default function SeatSelect({ onClose }) {
         <p className="text-left">Seleccione su Asiento...</p>
 
         <div className="p-4 flex-1 flex flex-col justify-center">
-          <AirplaneMap1 />
+          <AirplaneMap1 SeatsJson={SeatsJson} />
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
-import SeatsJson from "../../Data/seats";
 import FlightSeat from "../flightSeat";
 
-export default function AirplaneMap1() {
+export default function AirplaneMap1({SeatsJson}) {
   return (
     <div className="flex flex-col gap-2 p-2 items-center justify-center rounded-2xl border-3 border-black">
       {/* Sección izquierda */}
@@ -20,7 +19,7 @@ export default function AirplaneMap1() {
       </div>
 
       {/* Pasillo */}
-      <div className="h-8 w-13/14 italic text-gray-600 flex gap-2 justify-center">
+      <div className="h-8 w-full italic text-gray-600 flex gap-2 justify-center">
         <span className="w-4" />
         <span className="w-6">01</span>
         <span className="w-6">02</span>

@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CountriesJson from "../Data/countries.json";
 import CitiesJson from "../Data/cities.json";
 import arrowImg from "../assets/arrowImg.png";
+import axios from "axios";
 
-export default function DestinationSelect() {
+
+export default function DestinationSelect({setFlights}) {
   const [countryOrigin, setCountryOrigin] = useState(0);
-  const [cityOrigin, setCityOrigin] = useState(0);
+  const [airportOrigin, setAirportOrigin] = useState(0);
 
   const [countryDestination, setCountryDestination] = useState(0);
-  const [cityDestination, setCityDestination] = useState(0);
+  const [airportDestination, setAirportDestination] = useState(0);
   
   const [date, setDate] = useState("");
 
@@ -19,6 +21,28 @@ export default function DestinationSelect() {
   const filteredCitiesDestination = CitiesJson.filter(
     (city) => city.id_country === Number(countryDestination)
   );
+
+  const getFlights = async () =>{
+    if(airportOrigin && airportDestination && date){
+      try{
+        const response = await axios.get(`http://localhost:3000/vuelos`, {
+          params: {
+            origen: airportOrigin,
+            destino: airportDestination,
+            fecha_salida: date,
+          },
+        });
+        setFlights(response.data);
+        console.log("Data received:", response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getFlights();
+  }, [airportOrigin, airportDestination, date])
 
   return (
     <div className="w-2/3 flex flex-row justify-between gap-2">
@@ -45,13 +69,13 @@ export default function DestinationSelect() {
             </select>
           </span>
           <span className="flex flex-row gap-3 items-center justify-between">
-            <label htmlFor="cityOrigin">Ciudad Origen:</label>
+            <label htmlFor="cityOrigin">Aeropuerto Origen:</label>
             <select
               id="cityOrigin"
               className="border border-white text-center p-1 bg-gray-700 w-3/5"
-              value={cityOrigin}
+              value={airportOrigin}
               onChange={(e) => {
-                setCityOrigin(e.target.value);
+                setAirportOrigin(e.target.value);
               }}
             >
               <option hidden value="0">
@@ -64,7 +88,7 @@ export default function DestinationSelect() {
                   </option>
                 ))
               ) : (
-                <option disabled>No hay ciudades disponibles</option>
+                <option disabled>No hay aeropuertos disponibles</option>
               )}
             </select>
           </span>
@@ -96,13 +120,13 @@ export default function DestinationSelect() {
             </select>
           </span>
           <span className="flex flex-row gap-3 items-center justify-between">
-            <label htmlFor="cityDestination">Ciudad Destino:</label>
+            <label htmlFor="cityDestination">Aeropuerto Destino:</label>
             <select
               id="cityDestination"
               className="border border-white text-center p-1 bg-gray-700 w-3/5"
-              value={cityDestination}
+              value={airportDestination}
               onChange={(e) => {
-                setCityDestination(e.target.value);
+                setAirportDestination(e.target.value);
               }}
             >
               <option hidden value="0">
@@ -115,7 +139,7 @@ export default function DestinationSelect() {
                   </option>
                 ))
               ) : (
-                <option disabled>No hay ciudades disponibles</option>
+                <option disabled>No hay aeropuertos disponibles</option>
               )}
             </select>
           </span>
