@@ -7,22 +7,21 @@ export default function FlightSeat({ seat }) {
   return (
     <>
       <div
-        key={seat.id}
         onClick={() => {
           setShowModal(true);
         }}
         className={`w-6 h-6 rounded-md cursor-pointer border-black ${
-          seat.status === "Libre"
+          seat.estado === "libre"
             ? `bg-blue-500`
-            : seat.status === "Reservado"
+            : seat.estado === "Reservado"
             ? `bg-orange-300`
-            : seat.status === "Vendido"
+            : seat.estado === "Vendido"
             ? `bg-green-500`
-            : seat.status === "Devuelto"
+            : seat.estado === "Devuelto"
             ? `bg-red-500`
             : ``
         } ${
-          seat.class === "Ejecutiva"
+          seat.clase_viaje === "Ejecutiva"
             ? `border-4`
             : `border`
         }`}

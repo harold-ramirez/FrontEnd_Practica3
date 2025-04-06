@@ -8,37 +8,49 @@ export default function FlightCard({ flight }) {
   return (
     <>
       <div
-        key={flight.id}
+        key={flight.id_programacion}
         onClick={() => setShowSeats(true)}
-        className="w-4/5 border border-white rounded-lg px-5 py-2 flex flex-row hover:bg-gray-700 cursor-pointer"
+        className="w-4/5 border border-white rounded-lg p-7 flex flex-row hover:bg-gray-700 cursor-pointer"
       >
         <span className="flex-1 flex flex-row gap-2">
           <span className="flex flex-col">
-            <span>{flight.fecha_salida.split(" ")[0]}</span>
+            <span>{flight.fecha_salida.slice(0, 10)}</span>
             <span className="font-bold text-3xl">
-              {flight.fecha_salida.split(" ")[1]}
+              {flight.fecha_salida.slice(11, 16)}
             </span>
           </span>
           <span className="flex flex-1 items-center justify-center">
-            {flight.origen}
+            {flight.aeropuerto_origen}
+            <br />
+            ----- {flight.pais_origen} -----
           </span>
         </span>
 
-        <img src={arrowImg} width={100} alt="arrow Img" />
+        <div>
+          <strong>VUELO: {flight.codigo_vuelo}</strong>
+          <img src={arrowImg} width={100} alt="arrow Img" />
+        </div>
 
         <span className="flex-1 flex flex-row gap-2">
           <span className="flex flex-1 items-center justify-center">
-            {flight.destino}
+            {flight.aeropuerto_destino}
+            <br />
+            ----- {flight.pais_destino} -----
           </span>
           <span className="flex flex-col">
-            <span>{flight.fecha_llegada.split(" ")[0]}</span>
+            <span>{flight.fecha_llegada.slice(0, 10)}</span>
             <span className="font-bold text-3xl">
-              {flight.fecha_llegada.split(" ")[1]}
+              {flight.fecha_llegada.slice(11, 16)}
             </span>
           </span>
         </span>
       </div>
-      {showSeats && <SeatSelect onClose={() => setShowSeats(false)} />}
+      {showSeats && (
+        <SeatSelect
+          flightId={flight.id_programacion}
+          onClose={() => setShowSeats(false)}
+        />
+      )}
     </>
   );
 }

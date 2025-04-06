@@ -1,6 +1,6 @@
 import FlightSeat from "../flightSeat";
 
-export default function AirplaneMap1({SeatsJson}) {
+export default function AirplaneMap1({ seats }) {
   return (
     <div className="flex flex-col gap-2 p-2 items-center justify-center rounded-2xl border-3 border-black">
       {/* Sección izquierda */}
@@ -9,10 +9,23 @@ export default function AirplaneMap1({SeatsJson}) {
           <div key={letter} className="flex gap-2 items-center">
             {/* Agregar letra antes de la fila */}
             <span className="w-4 text-right text-gray-600">{letter}</span>
-            {SeatsJson.filter((seat) => seat.seatNumber.includes(letter))
-              .sort((a, b) => a.seatNumber.localeCompare(b.seatNumber)) // Ordenar por número
-              .map((seat) => (
-                <FlightSeat seat={seat} />
+            {seats
+              .filter((seat) => seat.nombre_asiento.includes(letter))
+              .sort((a, b) => {
+                // Extraer la parte numérica del nombre del asiento
+                const numA = parseInt(a.nombre_asiento.match(/\d+/)[0], 10);
+                const numB = parseInt(b.nombre_asiento.match(/\d+/)[0], 10);
+
+                // Si los números son iguales, ordenar alfabéticamente
+                if (numA === numB) {
+                  return a.nombre_asiento.localeCompare(b.nombre_asiento);
+                }
+
+                // Ordenar numéricamente
+                return numA - numB;
+              })
+              .map((seat, index) => (
+                <FlightSeat key={index} seat={seat} />
               ))}
           </div>
         ))}
@@ -40,8 +53,8 @@ export default function AirplaneMap1({SeatsJson}) {
         <span className="w-6">17</span>
         <span className="w-6">18</span>
         <span className="w-6">19</span>
-        <span className="w-6">20</span>
-        <span className="w-6">21</span>
+        {/* <span className="w-6">20</span>
+        <span className="w-6">21</span> */}
       </div>
 
       {/* Sección derecha */}
@@ -50,10 +63,23 @@ export default function AirplaneMap1({SeatsJson}) {
           <div key={letter} className="flex gap-2 items-center">
             {/* Agregar letra antes de la fila */}
             <span className="w-4 text-right text-gray-600">{letter}</span>
-            {SeatsJson.filter((seat) => seat.seatNumber.includes(letter))
-              .sort((a, b) => a.seatNumber.localeCompare(b.seatNumber)) // Ordenar por número
-              .map((seat) => (
-                <FlightSeat seat={seat} />
+            {seats
+              .filter((seat) => seat.nombre_asiento.includes(letter))
+              .sort((a, b) => {
+                // Extraer la parte numérica del nombre del asiento
+                const numA = parseInt(a.nombre_asiento.match(/\d+/)[0], 10);
+                const numB = parseInt(b.nombre_asiento.match(/\d+/)[0], 10);
+
+                // Si los números son iguales, ordenar alfabéticamente
+                if (numA === numB) {
+                  return a.nombre_asiento.localeCompare(b.nombre_asiento);
+                }
+
+                // Ordenar numéricamente
+                return numA - numB;
+              })
+              .map((seat, index) => (
+                <FlightSeat key={index} seat={seat} />
               ))}
           </div>
         ))}

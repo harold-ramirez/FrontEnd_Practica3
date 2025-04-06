@@ -1,9 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../constants";
 
 export default function Modal({ onClose, seat }) {
   const [passenger, setPassenger] = useState("");
   const [passport, setPassport] = useState("");
+
+  const handleSearchPassenger = () => {
+    // try{
+    // }catch(error){
+    //   console.error("Error:", error);
+    // }
+  };
 
   const handleComprar = () => {
     //Lógica
@@ -16,7 +24,7 @@ export default function Modal({ onClose, seat }) {
   const handleReservar = async () => {
     if (passenger && passport) {
       try {
-        const response = await axios.post(`http://localhost:3000/reservar`, {
+        const response = await axios.post(`${API_BASE_URL}/reservar`, {
           params: {
             cliente: {
               nombre: passenger.split(" ")[0],
@@ -24,10 +32,10 @@ export default function Modal({ onClose, seat }) {
               pasaporte: passport,
               codigoPais: ".",
             },
-            idAvion: seat.idAvion,
-            idProgramacion: seat.idProgramacion,
+            // idAvion: seat.idAvion,
+            // idProgramacion: seat.idProgramacion,
             nombreAsiento: seat.nombre_asiento,
-            precio: seat.precio_usd,
+            precio: seat.precio_base_usd,
           },
         });
         // Manejar la respuesta aquí
@@ -58,13 +66,13 @@ export default function Modal({ onClose, seat }) {
       <div
         onClick={(e) => e.stopPropagation()}
         className={`bg-white rounded-xl h-1/3 flex flex-col justify-center p-5 border-8 ${
-          seat.status === "Libre"
+          seat.estado === "libre"
             ? `border-blue-500`
-            : seat.status === "Reservado"
+            : seat.estado === "Reservado"
             ? `border-orange-300`
-            : seat.status === "Vendido"
+            : seat.estado === "Vendido"
             ? `border-green-500`
-            : seat.status === "Devuelto"
+            : seat.estado === "Devuelto"
             ? `border-red-500`
             : ``
         }`}
@@ -90,7 +98,7 @@ export default function Modal({ onClose, seat }) {
               <input
                 type="text"
                 readOnly
-                value={seat.clase}
+                value={seat.clase_viaje}
                 className="border border-black w-2/5 p-1 rounded text-center"
               />
             </span>
@@ -102,7 +110,7 @@ export default function Modal({ onClose, seat }) {
               <input
                 type="text"
                 readOnly
-                value={seat.precio}
+                value={seat.precio_base_usd}
                 className="border border-black w-2/5 p-1 rounded text-center"
               />
             </span>
@@ -123,11 +131,30 @@ export default function Modal({ onClose, seat }) {
 
             <span className="flex flex-row gap-2">
               <label htmlFor="" className="w-2/5">
+                Pasaporte:
+              </label>
+              <input
+                type="text"
+                inputMode="numeric"
+                maxLength={5}
+                placeholder="X X X X X"
+                readOnly={seat.estado !== "libre"}
+                value={passport}
+                className="border border-black p-1 rounded text-center"
+                onChange={(e) => {
+                  setPassport(e.target.value.replace(/[^0-9]/g, ""));
+                  handleSearchPassenger();
+                }}
+              />
+            </span>
+
+            <span className="flex flex-row gap-2">
+              <label htmlFor="" className="w-2/5">
                 Pasajero:
               </label>
               <input
                 type="text"
-                readOnly={seat.status !== "Libre"}
+                readOnly={seat.estado !== "libre" || passenger} ///falta implementar logica (?)
                 value={passenger}
                 placeholder="Ingrese su nombre"
                 className="border border-black p-1 rounded text-center"
@@ -136,30 +163,12 @@ export default function Modal({ onClose, seat }) {
                 }}
               />
             </span>
-
-            <span className="flex flex-row gap-2">
-              <label htmlFor="" className="w-2/5">
-                Pasaporte:
-              </label>
-              <input
-                type="text"
-                inputMode="numeric"
-                maxLength={5}
-                placeholder="X X X X X"
-                readOnly={seat.status !== "Libre"}
-                value={passport}
-                className="border border-black p-1 rounded text-center"
-                onChange={(e) => {
-                  setPassport(e.target.value.replace(/[^0-9]/g, ""));
-                }}
-              />
-            </span>
           </span>
         </span>
         <span className="flex flex-row justify-around items-center p-1">
           {(() => {
-            switch (seat.status) {
-              case "Libre":
+            switch (seat.estado) {
+              case "libre":
                 return (
                   <>
                     <input

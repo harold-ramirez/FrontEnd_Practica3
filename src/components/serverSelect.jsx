@@ -1,8 +1,23 @@
-import CountriesJson from "../Data/countries.json";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { API_BASE_URL } from "../constants";
 
 export default function ServerSelect() {
-  const [countryId, setCountryId] = useState(null);
+  const [countriesList, setCountriesList] = useState([]);
+  const [countryId, setCountryId] = useState(0);
+
+  const fetchCountries = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/paises/paises`);
+      setCountriesList(response.data);
+    } catch (error) {
+      console.error("Error fetching countries:", error);
+    }
+  };
+
+  useEffect(() =>{
+    fetchCountries();
+  }, []);
 
   return (
     <div className="border-3 border-white bg-teal-900 p-5 flex justify-around">
@@ -19,13 +34,14 @@ export default function ServerSelect() {
           <option hidden value="0">
             Selecciona un país...
           </option>
-          {CountriesJson.map((city) => (
-            <option key={city.id} value={city.id}>
-              {city.name}
+          {countriesList.map((country) => (
+            <option key={country.id} value={country.id}>
+              {country.nombre}
             </option>
           ))}
         </select>
       </span>
+
       <span className="flex flex-row gap-3 items-center">
         <label htmlFor="">Servidor Óptimo Seleccionado:</label>
         <input

@@ -1,48 +1,53 @@
 import { useState, useEffect } from "react";
-import CountriesJson from "../Data/countries.json";
-import CitiesJson from "../Data/cities.json";
 import arrowImg from "../assets/arrowImg.png";
 import axios from "axios";
+import { API_BASE_URL } from "../constants.js";
 
-
-export default function DestinationSelect({setFlights}) {
-  const [countryOrigin, setCountryOrigin] = useState(0);
-  const [airportOrigin, setAirportOrigin] = useState(0);
-
-  const [countryDestination, setCountryDestination] = useState(0);
-  const [airportDestination, setAirportDestination] = useState(0);
+export default function DestinationSelect({ setAirportOrigin, setAirportDestination, setDate }) {
+  const [countriesList, setCountriesList] = useState([]);
+  const [airportsOriginList, setAirportsOriginList] = useState([]);
+  const [airportsDestinationList, setAirportsDestinationList] = useState([]);
   
-  const [date, setDate] = useState("");
+  const [countryOrigin, setCountryOrigin] = useState(0);
+  const [countryDestination, setCountryDestination] = useState(0);
 
-  // Filtrar las ciudades según los countries seleccionados
-  const filteredCitiesOrigin = CitiesJson.filter(
-    (city) => city.id_country === Number(countryOrigin)
-  );
-  const filteredCitiesDestination = CitiesJson.filter(
-    (city) => city.id_country === Number(countryDestination)
-  );
+  const fetchCountries = async () => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/paises/paises`
+      );
+      setCountriesList(response.data);
+    } catch (error) {
+      console.error("Error fetching countries:", error);
+    }
+  };
 
-  const getFlights = async () =>{
-    if(airportOrigin && airportDestination && date){
-      try{
-        const response = await axios.get(`http://localhost:3000/vuelos`, {
-          params: {
-            origen: airportOrigin,
-            destino: airportDestination,
-            fecha_salida: date,
-          },
-        });
-        setFlights(response.data);
-        console.log("Data received:", response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+  const fetchAirports = async (countryId, isOrigin) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/paises/paises-aeropuertos`
+      );
+      if (isOrigin) {
+        setAirportsOriginList(
+          response.data.filter(
+            (airport) => airport.id_pais === parseInt(countryId)
+          )
+        );
+      } else {
+        setAirportsDestinationList(
+          response.data.filter(
+            (airport) => airport.id_pais === parseInt(countryId)
+          )
+        );
       }
+    } catch (error) {
+      console.log("Error getting airports: ", error);
     }
   };
 
   useEffect(() => {
-    getFlights();
-  }, [airportOrigin, airportDestination, date])
+    fetchCountries();
+  }, []);
 
   return (
     <div className="w-2/3 flex flex-row justify-between gap-2">
@@ -56,14 +61,15 @@ export default function DestinationSelect({setFlights}) {
               value={countryOrigin}
               onChange={(e) => {
                 setCountryOrigin(e.target.value);
+                fetchAirports(e.target.value, true);
               }}
             >
               <option hidden value="0">
                 Selecciona un país...
               </option>
-              {CountriesJson.map((city) => (
-                <option key={city.id} value={city.id}>
-                  {city.name}
+              {countriesList.map((country) => (
+                <option key={country.id} value={country.id}>
+                  {country.nombre}
                 </option>
               ))}
             </select>
@@ -73,7 +79,6 @@ export default function DestinationSelect({setFlights}) {
             <select
               id="cityOrigin"
               className="border border-white text-center p-1 bg-gray-700 w-3/5"
-              value={airportOrigin}
               onChange={(e) => {
                 setAirportOrigin(e.target.value);
               }}
@@ -81,10 +86,13 @@ export default function DestinationSelect({setFlights}) {
               <option hidden value="0">
                 ...
               </option>
-              {filteredCitiesOrigin.length > 0 ? (
-                filteredCitiesOrigin.map((city) => (
-                  <option key={city.id} value={city.id}>
-                    {city.name}
+              {airportsOriginList.length > 0 ? (
+                airportsOriginList.map((airport) => (
+                  <option
+                    key={airport.id_aeropuerto}
+                    value={airport.id_aeropuerto}
+                  >
+                    {airport.nombre_aeropuerto}
                   </option>
                 ))
               ) : (
@@ -107,14 +115,15 @@ export default function DestinationSelect({setFlights}) {
               value={countryDestination}
               onChange={(e) => {
                 setCountryDestination(e.target.value);
+                fetchAirports(e.target.value, false);
               }}
             >
               <option hidden value="0">
                 Selecciona un país...
               </option>
-              {CountriesJson.map((city) => (
-                <option key={city.id} value={city.id}>
-                  {city.name}
+              {countriesList.map((country) => (
+                <option key={country.id} value={country.id}>
+                  {country.nombre}
                 </option>
               ))}
             </select>
@@ -124,7 +133,6 @@ export default function DestinationSelect({setFlights}) {
             <select
               id="cityDestination"
               className="border border-white text-center p-1 bg-gray-700 w-3/5"
-              value={airportDestination}
               onChange={(e) => {
                 setAirportDestination(e.target.value);
               }}
@@ -132,10 +140,13 @@ export default function DestinationSelect({setFlights}) {
               <option hidden value="0">
                 ...
               </option>
-              {filteredCitiesDestination.length > 0 ? (
-                filteredCitiesDestination.map((city) => (
-                  <option key={city.id} value={city.id}>
-                    {city.name}
+              {airportsDestinationList.length > 0 ? (
+                airportsDestinationList.map((airport) => (
+                  <option
+                    key={airport.id_aeropuerto}
+                    value={airport.id_aeropuerto}
+                  >
+                    {airport.nombre_aeropuerto}
                   </option>
                 ))
               ) : (
@@ -152,7 +163,6 @@ export default function DestinationSelect({setFlights}) {
           type="date"
           id="date"
           className="border border-white text-center p-1"
-          value={date}
           onChange={(e) => {
             setDate(e.target.value);
           }}

@@ -9,8 +9,8 @@ export default function FlightsList({flights}) {
           No hay vuelos disponibles...
         </span>
       ) : (
-        flights.map((flight) => (
-          <FlightCard flight={flight}/>
+        flights.map((flight, index) => (
+          <FlightCard key={index} flight={flight}/>
         ))
       )}
     </div>
