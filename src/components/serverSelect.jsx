@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Servers from "../Data/countries-servers.json";
 import { API_BASE_URL } from "../constants";
 
 export default function ServerSelect() {
   const [countriesList, setCountriesList] = useState([]);
   const [countryId, setCountryId] = useState(0);
+  const [selectedServer, setSelectedServer] = useState("");
 
   const fetchCountries = async () => {
     try {
@@ -15,7 +17,35 @@ export default function ServerSelect() {
     }
   };
 
-  useEffect(() =>{
+  const handleServer = (idCountry) => {
+    setSelectedServer("Conectando...");
+    setTimeout(() => {
+      const selectedCountry = countriesList.find(
+        (country) => country.id === parseInt(idCountry)
+      );
+
+      if (selectedCountry) {
+        const countryName = selectedCountry.nombre;
+        let continent = null;
+        for (const [key, countries] of Object.entries(Servers)) {
+          if (countries.includes(countryName)) {
+            continent = key;
+            break;
+          }
+        }
+
+        if (continent) {
+          setSelectedServer(continent);
+        } else {
+          setSelectedServer("Servidor no encontrado");
+        }
+      } else {
+        setSelectedServer("País no encontrado");
+      }
+    }, 1000);
+  };
+
+  useEffect(() => {
     fetchCountries();
   }, []);
 
@@ -28,6 +58,7 @@ export default function ServerSelect() {
           value={countryId}
           onChange={(e) => {
             setCountryId(e.target.value);
+            handleServer(e.target.value);
           }}
           className="bg-gray-700 border border-white text-center p-1"
         >
@@ -47,6 +78,7 @@ export default function ServerSelect() {
         <input
           type="text"
           readOnly
+          value={selectedServer}
           className="border border-white text-center p-1"
           placeholder="Seleccione un país..."
         />
