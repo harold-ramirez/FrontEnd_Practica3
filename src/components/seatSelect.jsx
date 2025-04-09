@@ -11,11 +11,12 @@ export default function SeatSelect({ flightId, onClose }) {
   const fetchSeats = async () => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/asientos/asientos/${flightId}`
+        `${API_BASE_URL}/reservas/reserva-detalle/${flightId}`
       );
+      // console.table(response.data);
       setSeats(response.data);
-      setExecutivePrice(response.data[0].precio_base_usd);
-      setTuristPrice(response.data[response.data.length - 1].precio_base_usd);
+      setExecutivePrice(response.data[0].precio_usd);
+      setTuristPrice(response.data[response.data.length - 1].precio_usd);
     } catch (error) {
       console.error("Error fetching seats:", error);
     }

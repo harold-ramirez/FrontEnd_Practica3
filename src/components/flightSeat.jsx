@@ -11,20 +11,16 @@ export default function FlightSeat({ seat }) {
           setShowModal(true);
         }}
         className={`w-6 h-6 rounded-md cursor-pointer border-black ${
-          seat.estado === "libre"
-            ? `bg-blue-500`
-            : seat.estado === "Reservado"
+          seat.estado === "reservado"
             ? `bg-orange-300`
-            : seat.estado === "Vendido"
+            : seat.estado === "comprado"
             ? `bg-green-500`
-            : seat.estado === "Devuelto"
+            : seat.disponible === true
+            ? `bg-blue-500`
+            : seat.estado === "devuelto"
             ? `bg-red-500`
             : ``
-        } ${
-          seat.clase_viaje === "Ejecutiva"
-            ? `border-4`
-            : `border`
-        }`}
+        } ${seat.clase === "Ejecutiva" ? `border-4` : `border`}`}
       />
       {showModal && <Modal onClose={() => setShowModal(false)} seat={seat} />}
     </>

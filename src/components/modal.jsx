@@ -5,55 +5,137 @@ import { API_BASE_URL } from "../constants";
 export default function Modal({ onClose, seat }) {
   const [passenger, setPassenger] = useState("");
   const [passport, setPassport] = useState("");
+  const [passportExists, setPassportExists] = useState(true);
 
-  const handleSearchPassenger = () => {
-    // try{
-    // }catch(error){
-    //   console.error("Error:", error);
-    // }
+  const handleSearchPassenger = async (pasaporte) => {
+    if (pasaporte.length >= 5) {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/clientes/pasajero/${pasaporte}`
+        );
+        if (response.data.nombre !== undefined) {
+          setPassenger(response.data.nombre + " " + response.data.apellido);
+          setPassportExists(true);
+        } else {
+          setPassenger("");
+          setPassportExists(false);
+        }
+      } catch (error) {
+        console.error("Error fecthing passenger:", error);
+      }
+    } else {
+      setPassenger("");
+      setPassportExists(true);
+    }
   };
 
-  const handleComprar = () => {
-    //Lógica
-    onClose;
+  const handleComprar = async () => {
+    if (passport && passenger) {
+      //en caso de pasajero existente
+      //registrar el asiento con ese pasajero
+      if (passportExists) {
+        try {
+          const response = await axios.put(
+            `${API_BASE_URL}/asientos/asientos/comprar`,
+            {
+              params: {
+                idAsiento: seat.idAsiento,
+                pasaporte: passport,
+                pasajero: passenger,
+              },
+            }
+          );
+          if (response.status === 200) {
+            alert("Compra realizada con éxito");
+            onClose();
+          } else {
+            console.error("Error al realizar la compra");
+          }
+        } catch (error) {
+          console.error("Error en la compra de asiento:", error);
+        }
+      } else {
+        //en caso de pasajero nuevo
+        //registrar el pasajero
+        //registrar el asiento con ese pasajero
+        try {
+          const response = await axios.post(
+            `${API_BASE_URL}/reservas/pasajero`,
+            {
+              params: {
+                nombre: passenger.split(" ")[0],
+                apellido: passenger.split(" ")[1],
+                pasaporte: passport,
+                id_programacion: seat.id_programacion,
+                id_avion: seat.id_avion,
+                nombre_asiento: seat.nombre_asiento,
+              },
+            }
+          );
+          if (response.status === 200) {
+            alert("Compra realizada con éxito");
+            onClose();
+          } else {
+            console.error("Error al realizar la compra");
+          }
+        } catch (error) {
+          console.error("Error en la compra de asiento:", error);
+        }
+      }
+    } else {
+      alert("Complete los campos requeridos");
+    }
   };
-  const handleDevolver = () => {
-    //Lógica
-    onClose;
+
+  const handleDevolver = async () => {
+    try {
+      const response = await axios.put(
+        `${API_BASE_URL}/asientos/asientos/devolver`,
+        {
+          params: {
+            idAsiento: seat.idAsiento,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        alert(
+          "El asiento se devolvió con éxito, en unos minutos se reflejará el cambio"
+        );
+        onClose();
+      } else {
+        alert("Error al devolver el asiento");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
+
   const handleReservar = async () => {
     if (passenger && passport) {
       try {
-        const response = await axios.post(`${API_BASE_URL}/reservar`, {
-          params: {
-            cliente: {
-              nombre: passenger.split(" ")[0],
-              apellido: passenger.split(" ")[1],
+        const response = await axios.post(
+          `${API_BASE_URL}/asientos/asientos/reservar`,
+          {
+            params: {
+              idAsiento: seat.idAsiento,
               pasaporte: passport,
-              codigoPais: ".",
+              pasajero: passenger,
             },
-            // idAvion: seat.idAvion,
-            // idProgramacion: seat.idProgramacion,
-            nombreAsiento: seat.nombre_asiento,
-            precio: seat.precio_base_usd,
-          },
-        });
-        // Manejar la respuesta aquí
-        console.log("Respuesta del servidor:", response.data);
-        console.log("Estado de la respuesta:", response.status);
+          }
+        );
 
-        // Verificar el código de estado para determinar si la solicitud fue exitosa
         if (response.status === 200) {
-          // La reserva fue exitosa
-          console.log("Reserva realizada con éxito");
-          onClose(); // Cerrar el modal o realizar otras acciones
+          alert("Reserva realizada con éxito");
+          onClose();
         } else {
-          // La reserva falló
-          console.error("Error al realizar la reserva");
+          alert("Error al realizar la reserva");
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
+    } else {
+      alert("Complete los campos requeridos");
     }
   };
 
@@ -66,13 +148,13 @@ export default function Modal({ onClose, seat }) {
       <div
         onClick={(e) => e.stopPropagation()}
         className={`bg-white rounded-xl h-1/3 flex flex-col justify-center p-5 border-8 ${
-          seat.estado === "libre"
-            ? `border-blue-500`
-            : seat.estado === "Reservado"
+          seat.estado === "reservado"
             ? `border-orange-300`
-            : seat.estado === "Vendido"
+            : seat.estado === "comprado"
             ? `border-green-500`
-            : seat.estado === "Devuelto"
+            : seat.disponible === true
+            ? `border-blue-500`
+            : seat.estado === "devuelto"
             ? `border-red-500`
             : ``
         }`}
@@ -98,7 +180,7 @@ export default function Modal({ onClose, seat }) {
               <input
                 type="text"
                 readOnly
-                value={seat.clase_viaje}
+                value={seat.clase}
                 className="border border-black w-2/5 p-1 rounded text-center"
               />
             </span>
@@ -110,7 +192,7 @@ export default function Modal({ onClose, seat }) {
               <input
                 type="text"
                 readOnly
-                value={seat.precio_base_usd}
+                value={"$" + seat.precio_usd}
                 className="border border-black w-2/5 p-1 rounded text-center"
               />
             </span>
@@ -124,7 +206,7 @@ export default function Modal({ onClose, seat }) {
               <input
                 type="text"
                 readOnly
-                value={seat.estado}
+                value={seat.estado === null ? "Libre" : seat.estado}
                 className="border border-black p-1 rounded text-center"
               />
             </span>
@@ -136,14 +218,16 @@ export default function Modal({ onClose, seat }) {
               <input
                 type="text"
                 inputMode="numeric"
-                maxLength={5}
-                placeholder="X X X X X"
-                readOnly={seat.estado !== "libre"}
-                value={passport}
+                placeholder="12345"
+                readOnly={seat.estado !== null} // Solo editable si el asiento está libre (estado === null)
+                value={seat.estado === null ? passport : seat.pasaporte || ""} // Usa el estado passport si está libre, o el valor del asiento si no
                 className="border border-black p-1 rounded text-center"
                 onChange={(e) => {
-                  setPassport(e.target.value.replace(/[^0-9]/g, ""));
-                  handleSearchPassenger();
+                  const value = e.target.value.replace(/[^0-9]/g, ""); // Solo números
+                  setPassport(value);
+                  if (value.length >= 5) {
+                    handleSearchPassenger(value); // Llama a la función si tiene al menos 5 caracteres
+                  }
                 }}
               />
             </span>
@@ -154,12 +238,18 @@ export default function Modal({ onClose, seat }) {
               </label>
               <input
                 type="text"
-                readOnly={seat.estado !== "libre" || passenger} ///falta implementar logica (?)
-                value={passenger}
-                placeholder="Ingrese su nombre"
+                readOnly={seat.estado !== null || passportExists} // Solo editable si el asiento está libre y no existe el pasajero
+                value={
+                  seat.estado === null
+                    ? passenger
+                    : seat.nombre
+                    ? `${seat.nombre} ${seat.apellido}`
+                    : ""
+                } // Usa el estado passenger si está libre, o los datos del asiento si no
+                placeholder="Jhon Doe"
                 className="border border-black p-1 rounded text-center"
                 onChange={(e) => {
-                  setPassenger(e.target.value);
+                  setPassenger(e.target.value); // Actualiza el estado passenger
                 }}
               />
             </span>
@@ -168,7 +258,7 @@ export default function Modal({ onClose, seat }) {
         <span className="flex flex-row justify-around items-center p-1">
           {(() => {
             switch (seat.estado) {
-              case "libre":
+              case null: // Libre
                 return (
                   <>
                     <input
@@ -185,7 +275,7 @@ export default function Modal({ onClose, seat }) {
                     />
                   </>
                 );
-              case "Reservado":
+              case "reservado":
                 return (
                   <>
                     <input
@@ -202,13 +292,13 @@ export default function Modal({ onClose, seat }) {
                     />
                   </>
                 );
-              case "Vendido":
+              case "comprado":
                 return (
                   <p className="italic text-red-600">
                     No se aceptan devoluciones
                   </p>
                 );
-              case "Devuelto":
+              case "devuelto":
                 return (
                   <p className="italic text-red-600">
                     Actualizando... en breve pasará a estado Libre

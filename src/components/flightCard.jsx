@@ -10,10 +10,10 @@ export default function FlightCard({ flight }) {
       <div
         key={flight.id_programacion}
         onClick={() => setShowSeats(true)}
-        className="w-4/5 border border-white rounded-lg p-7 flex flex-row hover:bg-gray-700 cursor-pointer"
+        className="w-4/5 bg-slate-300 text-black border-2 border-red-500 rounded-lg p-7 flex flex-row hover:bg-slate-500 cursor-pointer"
       >
         <span className="flex-1 flex flex-row gap-2">
-          <span className="flex flex-col">
+          <span className="flex flex-col items-center justify-center">
             <span>{flight.fecha_salida.slice(0, 10)}</span>
             <span className="font-bold text-3xl">
               {flight.fecha_salida.slice(11, 16)}
@@ -37,7 +37,7 @@ export default function FlightCard({ flight }) {
             <br />
             ----- {flight.pais_destino} -----
           </span>
-          <span className="flex flex-col">
+          <span className="flex flex-col items-center justify-center">
             <span>{flight.fecha_llegada.slice(0, 10)}</span>
             <span className="font-bold text-3xl">
               {flight.fecha_llegada.slice(11, 16)}
