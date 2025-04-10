@@ -62,7 +62,7 @@ export default function SeatSelect({ flightId, onClose }) {
         <p className="text-left">Seleccione su Asiento por favor...</p>
 
         <div className="p-4 flex-1 flex flex-col justify-center">
-          <AirplaneMap1 seats={seats} />
+          <AirplaneMap1 seats={seats} closeSeatSelection={onClose} />
         </div>
       </div>
     </div>

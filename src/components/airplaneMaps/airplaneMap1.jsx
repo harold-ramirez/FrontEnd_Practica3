@@ -1,6 +1,6 @@
 import FlightSeat from "../flightSeat";
 
-export default function AirplaneMap1({ seats }) {
+export default function AirplaneMap1({ seats, closeSeatSelection }) {
   return (
     <div className="flex flex-col gap-2 p-2 items-center justify-center rounded-2xl border-3 border-black">
       {/* Sección izquierda */}
@@ -25,7 +25,7 @@ export default function AirplaneMap1({ seats }) {
                 return numA - numB;
               })
               .map((seat, index) => (
-                <FlightSeat key={index} seat={seat} />
+                <FlightSeat key={index} seat={seat} closeSeatSelection={closeSeatSelection} />
               ))}
           </div>
         ))}
@@ -79,7 +79,7 @@ export default function AirplaneMap1({ seats }) {
                 return numA - numB;
               })
               .map((seat, index) => (
-                <FlightSeat key={index} seat={seat} />
+                <FlightSeat key={index} seat={seat} closeSeatSelection={closeSeatSelection} />
               ))}
           </div>
         ))}

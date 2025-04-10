@@ -1,7 +1,7 @@
 import Modal from "./modal";
 import { useState } from "react";
 
-export default function FlightSeat({ seat }) {
+export default function FlightSeat({ seat, closeSeatSelection }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ export default function FlightSeat({ seat }) {
             : ``
         } ${seat.clase === "Ejecutiva" ? `border-4` : `border`}`}
       />
-      {showModal && <Modal onClose={() => setShowModal(false)} seat={seat} />}
+      {showModal && <Modal onClose={() => setShowModal(false)} seat={seat} closeSeatSelection={closeSeatSelection} />}
     </>
   );
 }

@@ -2,10 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../constants";
 
-export default function Modal({ onClose, seat }) {
+export default function Modal({ onClose, seat, closeSeatSelection }) {
+  const [passengerID, setPassengerID] = useState(0);
   const [passenger, setPassenger] = useState("");
   const [passport, setPassport] = useState("");
   const [passportExists, setPassportExists] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false); // Nuevo estado para controlar el procesamiento
 
   const handleSearchPassenger = async (pasaporte) => {
     if (pasaporte.length >= 5) {
@@ -14,6 +16,7 @@ export default function Modal({ onClose, seat }) {
           `${API_BASE_URL}/clientes/pasajero/${pasaporte}`
         );
         if (response.data.nombre !== undefined) {
+          setPassengerID(parseInt(response.data.id));
           setPassenger(response.data.nombre + " " + response.data.apellido);
           setPassportExists(true);
         } else {
@@ -21,7 +24,7 @@ export default function Modal({ onClose, seat }) {
           setPassportExists(false);
         }
       } catch (error) {
-        console.error("Error fecthing passenger:", error);
+        console.error("Error fetching passenger:", error);
       }
     } else {
       setPassenger("");
@@ -31,112 +34,147 @@ export default function Modal({ onClose, seat }) {
 
   const handleComprar = async () => {
     if (passport && passenger) {
-      //en caso de pasajero existente
-      //registrar el asiento con ese pasajero
+      setIsProcessing(true); // Deshabilitar botones
       if (passportExists) {
+        // Pasajero existente
         try {
-          const response = await axios.put(
-            `${API_BASE_URL}/asientos/asientos/comprar`,
-            {
-              params: {
-                idAsiento: seat.idAsiento,
-                pasaporte: passport,
-                pasajero: passenger,
-              },
+          if (seat.estado === "reservado") {
+            // Para actualizar un asiento ya reservado
+            const response = await axios.put(
+              `${API_BASE_URL}/asientos/reserva/estado`,
+              {
+                id_cliente: seat.id_cliente,
+                id_programacion: seat.id_programacion,
+                id_avion: seat.id_avion,
+                nombre_asiento: seat.nombre_asiento,
+                estado: "comprado",
+              }
+            );
+
+            if (response.status === 200) {
+              alert("Compra realizada con éxito");
+              closeSeatSelection();
+            } else {
+              console.error("Error al realizar la compra");
             }
-          );
-          if (response.status === 200) {
-            alert("Compra realizada con éxito");
-            onClose();
           } else {
-            console.error("Error al realizar la compra");
+            // Asiento Libre
+            //update en asientoProgramación
+            const response = await axios.put(
+              `${API_BASE_URL}/asientos/asiento-programacion/estado`,
+              {
+                id_programacion: seat.id_programacion,
+                id_avion: seat.id_avion,
+                nombre_asiento: seat.nombre_asiento,
+                disponible: false,
+              }
+            );
+            if (response.status === 200) {
+              //insert en reserva
+              await axios.post(`${API_BASE_URL}/asientos/reserva`, {
+                id_cliente: passengerID,
+                id_programacion: seat.id_programacion,
+                id_avion: seat.id_avion,
+                nombre_asiento: seat.nombre_asiento,
+                precio_usd: seat.precio_usd,
+                estado: "comprado",
+              });
+              alert("Compra realizada con éxito");
+              closeSeatSelection();
+            } else {
+              console.error("Error en la transaccion");
+            }
           }
         } catch (error) {
           console.error("Error en la compra de asiento:", error);
+        } finally {
+          setIsProcessing(false); // Habilitar botones
         }
       } else {
-        //en caso de pasajero nuevo
-        //registrar el pasajero
-        //registrar el asiento con ese pasajero
+        // Pasajero nuevo -> sí o sí asiento libre
         try {
           const response = await axios.post(
             `${API_BASE_URL}/reservas/pasajero`,
             {
-              params: {
-                nombre: passenger.split(" ")[0],
-                apellido: passenger.split(" ")[1],
-                pasaporte: passport,
-                id_programacion: seat.id_programacion,
-                id_avion: seat.id_avion,
-                nombre_asiento: seat.nombre_asiento,
-              },
+              nombre: passenger.split(" ")[0],
+              apellido: passenger.split(" ")[1],
+              pasaporte: passport,
+              id_programacion: seat.id_programacion,
+              id_avion: seat.id_avion,
+              nombre_asiento: seat.nombre_asiento,
+              precio_usd: seat.precio_usd,
+              estado: "comprado",
             }
           );
           if (response.status === 200) {
             alert("Compra realizada con éxito");
-            onClose();
-          } else {
-            console.error("Error al realizar la compra");
+            closeSeatSelection();
           }
         } catch (error) {
           console.error("Error en la compra de asiento:", error);
+        } finally {
+          setIsProcessing(false); // Habilitar botones
         }
       }
     } else {
       alert("Complete los campos requeridos");
-    }
-  };
-
-  const handleDevolver = async () => {
-    try {
-      const response = await axios.put(
-        `${API_BASE_URL}/asientos/asientos/devolver`,
-        {
-          params: {
-            idAsiento: seat.idAsiento,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        alert(
-          "El asiento se devolvió con éxito, en unos minutos se reflejará el cambio"
-        );
-        onClose();
-      } else {
-        alert("Error al devolver el asiento");
-      }
-    } catch (error) {
-      console.error("Error:", error);
     }
   };
 
   const handleReservar = async () => {
-    if (passenger && passport) {
-      try {
-        const response = await axios.post(
-          `${API_BASE_URL}/asientos/asientos/reservar`,
-          {
-            params: {
-              idAsiento: seat.idAsiento,
-              pasaporte: passport,
-              pasajero: passenger,
-            },
-          }
-        );
+    // if (passenger && passport) {
+    //   setIsProcessing(true); // Deshabilitar botones
+    //   try {
+    //     const response = await axios.post(
+    //       `${API_BASE_URL}/asientos/asientos/reservar`,
+    //       {
+    //         params: {
+    //           idAsiento: seat.idAsiento,
+    //           pasaporte: passport,
+    //           pasajero: passenger,
+    //         },
+    //       }
+    //     );
+    //     if (response.status === 200) {
+    //       alert("Reserva realizada con éxito");
+    //       closeSeatSelection();
+    //     } else {
+    //       alert("Error al realizar la reserva");
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching data:", error);
+    //   } finally {
+    //     setIsProcessing(false); // Habilitar botones
+    //   }
+    // } else {
+    //   alert("Complete los campos requeridos");
+    // }
+  };
 
-        if (response.status === 200) {
-          alert("Reserva realizada con éxito");
-          onClose();
-        } else {
-          alert("Error al realizar la reserva");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    } else {
-      alert("Complete los campos requeridos");
-    }
+  const handleDevolver = async () => {
+    // setIsProcessing(true); // Deshabilitar botones
+    // try {
+    //   const response = await axios.put(
+    //     `${API_BASE_URL}/asientos/asientos/devolver`,
+    //     {
+    //       params: {
+    //         idAsiento: seat.idAsiento,
+    //       },
+    //     }
+    //   );
+    //   if (response.status === 200) {
+    //     alert(
+    //       "El asiento se devolvió con éxito, en unos minutos se reflejará el cambio"
+    //     );
+    //     closeSeatSelection();
+    //   } else {
+    //     alert("Error al devolver el asiento");
+    //   }
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // } finally {
+    //   setIsProcessing(false); // Habilitar botones
+    // }
   };
 
   return (
@@ -223,11 +261,9 @@ export default function Modal({ onClose, seat }) {
                 value={seat.estado === null ? passport : seat.pasaporte || ""} // Usa el estado passport si está libre, o el valor del asiento si no
                 className="border border-black p-1 rounded text-center"
                 onChange={(e) => {
-                  const value = e.target.value.replace(/[^0-9]/g, ""); // Solo números
+                  const value = e.target.value; // Solo números
                   setPassport(value);
-                  if (value.length >= 5) {
-                    handleSearchPassenger(value); // Llama a la función si tiene al menos 5 caracteres
-                  }
+                  handleSearchPassenger(value); // Llama a la función si tiene al menos 5 caracteres
                 }}
               />
             </span>
@@ -265,13 +301,19 @@ export default function Modal({ onClose, seat }) {
                       type="button"
                       value="Reservar"
                       onClick={handleReservar}
-                      className="bg-blue-300 border border-black w-1/3 rounded-lg p-2 hover:bg-blue-800 hover:text-white"
+                      disabled={isProcessing} // Deshabilitar mientras se procesa
+                      className={`bg-blue-300 border border-black w-1/3 rounded-lg p-2 hover:bg-blue-800 hover:text-white ${
+                        isProcessing ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     />
                     <input
                       type="button"
                       value="Comprar"
                       onClick={handleComprar}
-                      className="bg-green-300 border border-black w-1/3 rounded-lg p-2 hover:bg-green-800 hover:text-white"
+                      disabled={isProcessing} // Deshabilitar mientras se procesa
+                      className={`bg-green-300 border border-black w-1/3 rounded-lg p-2 hover:bg-green-800 hover:text-white ${
+                        isProcessing ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     />
                   </>
                 );
@@ -282,13 +324,19 @@ export default function Modal({ onClose, seat }) {
                       type="button"
                       value="Devolver"
                       onClick={handleDevolver}
-                      className="bg-red-300 border border-black w-1/3 rounded-lg p-2 hover:bg-red-800 hover:text-white"
+                      disabled={isProcessing} // Deshabilitar mientras se procesa
+                      className={`bg-red-300 border border-black w-1/3 rounded-lg p-2 hover:bg-red-800 hover:text-white ${
+                        isProcessing ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     />
                     <input
                       type="button"
                       value="Comprar"
                       onClick={handleComprar}
-                      className="bg-green-300 border border-black w-1/3 rounded-lg p-2 hover:bg-green-800 hover:text-white"
+                      disabled={isProcessing} // Deshabilitar mientras se procesa
+                      className={`bg-green-300 border border-black w-1/3 rounded-lg p-2 hover:bg-green-800 hover:text-white ${
+                        isProcessing ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     />
                   </>
                 );
