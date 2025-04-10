@@ -17,7 +17,7 @@ export default function FlightSeat({ seat, closeSeatSelection }) {
             ? `bg-green-500`
             : seat.disponible === true
             ? `bg-blue-500`
-            : seat.estado === "devuelto"
+            : seat.estado === "cancelado"
             ? `bg-red-500`
             : ``
         } ${seat.clase === "Ejecutiva" ? `border-4` : `border`}`}

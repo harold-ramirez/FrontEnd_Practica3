@@ -215,7 +215,7 @@ export default function Modal({ onClose, seat, closeSeatSelection }) {
           id_programacion: seat.id_programacion,
           id_avion: seat.id_avion,
           nombre_asiento: seat.nombre_asiento,
-          estado: "devuelto",
+          estado: "cancelado",
         }
       );
 
@@ -249,7 +249,7 @@ export default function Modal({ onClose, seat, closeSeatSelection }) {
             ? `border-green-500`
             : seat.disponible === true
             ? `border-blue-500`
-            : seat.estado === "devuelto"
+            : seat.estado === "cancelado"
             ? `border-red-500`
             : ``
         }`}
@@ -403,7 +403,7 @@ export default function Modal({ onClose, seat, closeSeatSelection }) {
                     No se aceptan devoluciones
                   </p>
                 );
-              case "devuelto":
+              case "cancelado":
                 return (
                   <p className="italic text-red-600">
                     Actualizando... en breve pasará a estado Libre
