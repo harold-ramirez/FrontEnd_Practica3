@@ -56,6 +56,8 @@ export default function Modal({ onClose, seat, closeSeatSelection }) {
               closeSeatSelection();
             } else {
               console.error("Error al realizar la compra");
+              alert("Error al realizar la compra");
+              closeSeatSelection();
             }
           } else {
             // Asiento Libre
@@ -83,6 +85,8 @@ export default function Modal({ onClose, seat, closeSeatSelection }) {
               closeSeatSelection();
             } else {
               console.error("Error en la transaccion");
+              alert("Error en la transaccion");
+              closeSeatSelection();
             }
           }
         } catch (error) {
@@ -109,6 +113,10 @@ export default function Modal({ onClose, seat, closeSeatSelection }) {
           if (response.status === 200) {
             alert("Compra realizada con éxito");
             closeSeatSelection();
+          }else{
+            console.error("Error en la compra de asiento");
+            alert("Error en la compra de asiento");
+            closeSeatSelection();
           }
         } catch (error) {
           console.error("Error en la compra de asiento:", error);
@@ -122,33 +130,76 @@ export default function Modal({ onClose, seat, closeSeatSelection }) {
   };
 
   const handleReservar = async () => {
-    // if (passenger && passport) {
-    //   setIsProcessing(true); // Deshabilitar botones
-    //   try {
-    //     const response = await axios.post(
-    //       `${API_BASE_URL}/asientos/asientos/reservar`,
-    //       {
-    //         params: {
-    //           idAsiento: seat.idAsiento,
-    //           pasaporte: passport,
-    //           pasajero: passenger,
-    //         },
-    //       }
-    //     );
-    //     if (response.status === 200) {
-    //       alert("Reserva realizada con éxito");
-    //       closeSeatSelection();
-    //     } else {
-    //       alert("Error al realizar la reserva");
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching data:", error);
-    //   } finally {
-    //     setIsProcessing(false); // Habilitar botones
-    //   }
-    // } else {
-    //   alert("Complete los campos requeridos");
-    // }
+    // Solo se pueden reservar los asientos libres
+    if (passport && passenger) {
+      setIsProcessing(true); // Deshabilitar botones
+      if (passportExists) { // Pasajero existente        
+        try {
+          //update en asientoProgramación
+          const response = await axios.put(
+            `${API_BASE_URL}/asientos/asiento-programacion/estado`,
+            {
+              id_programacion: seat.id_programacion,
+              id_avion: seat.id_avion,
+              nombre_asiento: seat.nombre_asiento,
+              disponible: false,
+            }
+          );
+          if (response.status === 200) {
+            //insert en reserva
+            await axios.post(`${API_BASE_URL}/asientos/reserva`, {
+              id_cliente: passengerID,
+              id_programacion: seat.id_programacion,
+              id_avion: seat.id_avion,
+              nombre_asiento: seat.nombre_asiento,
+              precio_usd: seat.precio_usd,
+              estado: "reservado",
+            });
+            alert("Reserva realizada con éxito");
+            closeSeatSelection();
+          } else {
+            console.error("Error en la reserva");
+            alert("Error en la reserva");
+            closeSeatSelection();
+          }
+        } catch (error) {
+          console.error("Error en la compra de asiento:", error);
+        } finally {
+          setIsProcessing(false); // Habilitar botones
+        }
+      } else { // Pasajero nuevo        
+        try {
+          const response = await axios.post(
+            `${API_BASE_URL}/reservas/pasajero`,
+            {
+              nombre: passenger.split(" ")[0],
+              apellido: passenger.split(" ")[1],
+              pasaporte: passport,
+              id_programacion: seat.id_programacion,
+              id_avion: seat.id_avion,
+              nombre_asiento: seat.nombre_asiento,
+              precio_usd: seat.precio_usd,
+              estado: "reservado",
+            }
+          );
+          if (response.status === 200) {
+            alert("Reserva realizada con éxito");
+            closeSeatSelection();
+          }
+          else{
+            console.error("Error en la reserva");
+            alert("Error en la reserva");
+            closeSeatSelection();
+          }
+        } catch (error) {
+          console.error("Error en la compra de asiento:", error);
+        } finally {
+          setIsProcessing(false); // Habilitar botones
+        }
+      }
+    } else {
+      alert("Complete los campos requeridos");
+    }
   };
 
   const handleDevolver = async () => {
